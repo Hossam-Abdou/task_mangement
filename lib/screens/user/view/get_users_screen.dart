@@ -35,7 +35,7 @@ class UsersScreen extends StatelessWidget {
             itemCount:cubit.getUserModel?.data?.length,
             shrinkWrap: true,
             itemBuilder: (context, index) =>
-                cubit.getUserModel!.data![index].userType=='employee'?
+
               InkWell(
                   onTap: ()
                   {
@@ -47,7 +47,7 @@ class UsersScreen extends StatelessWidget {
                       title: Text('${cubit.getUserModel!.data![index].name}'),
                     ),
                   ),
-                ) : Container()
+                )
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor:  CustomColors.darkBlue,

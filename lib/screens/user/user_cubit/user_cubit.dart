@@ -75,8 +75,8 @@ class UserCubit extends Cubit<UserState> {
         updateUserModel = UpdateUserModel.fromJson(value.data);
         print(updateUserModel!.data!.name);
         print(updateUserModel!.data!.userType);
-        getAllUsers();
 
+        getAllUsers();
         emit(UpdateUserSucc());
       }
     }).catchError((error) {
@@ -130,10 +130,12 @@ class UserCubit extends Cubit<UserState> {
 
 
   dynamic selectedCheckbox=0;
-  void updateSelectedCheckbox(value) {
-    selectedCheckbox=value;
-    emit(mn());
+
+  void updateRadioValue( value) {
+    selectedCheckbox = value;
+    emit(RadioValueChanged());
   }
+
 
 
 

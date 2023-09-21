@@ -57,51 +57,43 @@ class UpdateUserDetails extends StatelessWidget {
                       label: 'Email',
                       controller:cubit.emailController,
                     ),
-                    SizedBox(height: 20.h,),
+                    SizedBox(height: 24.h,),
 
                     CustomField(
                       label: 'Phone',
                       controller:cubit.phoneController,
                     ),
-                    SizedBox(height: 20.h,),
+                    SizedBox(height: 24.h,),
                     CustomField(
                       label: 'Password',
                       controller:cubit.passwordController,
                     ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: cubit.selectedCheckbox == 0,
-                          activeColor: CustomColors.primaryButton,
-                          onChanged: (val) {
-                              cubit.updateSelectedCheckbox(0);
-                          },
-                          shape: OvalBorder(),
-                        ),
-                        Text('admin'),
 
-                        Checkbox(
-                          value: cubit.selectedCheckbox == 1,
-                          activeColor: CustomColors.primaryButton,
-                          onChanged: (val) {
-                            cubit.updateSelectedCheckbox(1) ;
-                          },
-                          shape: OvalBorder(),
-                        ),
-                        Text('manager'),
-                        Checkbox(
-                          value: cubit.selectedCheckbox == 2,
-                          activeColor:CustomColors.primaryButton,
-                          onChanged: (val) {
-                            cubit.updateSelectedCheckbox(2);
-                          },
-                          shape: OvalBorder(),
-                        ),
-                        Text('employee'),
 
-                      ],
-                    ),
-                    SizedBox(height: 20.h,),
+                        RadioMenuButton(
+                            value:0,
+                            groupValue: cubit.selectedCheckbox,
+                            onChanged: (value) =>
+                                cubit.updateRadioValue(value),
+                            child: Text('admin')),
+
+                           RadioMenuButton(
+                              value: 1,
+                              groupValue:  cubit.selectedCheckbox,
+                              onChanged: (value) => cubit.updateRadioValue(value!),
+                              child: Text('manager')),
+
+
+                          RadioMenuButton(
+                              value: 2,
+                              groupValue:  cubit.selectedCheckbox,
+                              onChanged: (value) => cubit.updateRadioValue(value!),
+                              child: Text('employee')),
+
+
+
+                
+                    SizedBox(height: 26.h,),
                     ConditionalBuilder(
                       condition: state is UpdateUserLoading,
                       builder:(context) =>  Center(child: CircularProgressIndicator( color: CustomColors.primaryButton,)),
@@ -110,10 +102,10 @@ class UpdateUserDetails extends StatelessWidget {
                           {
                             cubit.updateUser(id);
                           },
-                          child: CustomButton(text: 'Create',))
+                          child: CustomButton(text: 'Update',))
 
                     ),
-                    SizedBox(height: 20.h,),
+                    SizedBox(height: 24.h,),
                     ConditionalBuilder(
                       condition: state is DeleteUserLoading,
                       builder:(context) =>  Center(child: CircularProgressIndicator( color:Colors.redAccent,)),

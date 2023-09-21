@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:untitled1/screens/tasks/cubit/tasks_cubit.dart';
+import 'package:untitled1/screens/tasks/cubit/tasks_state.dart';
 
 import '../../../utils/colors/custom_colors.dart';
 
 class EditTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<TasksCubit, TasksState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var cubit=TasksCubit.get(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffF3FAF9),
@@ -120,48 +129,30 @@ class EditTask extends StatelessWidget {
                   ),
                 ],
               ),
+              RadioMenuButton(
+                  value:0,
+                  groupValue: cubit.selectedCheckbox,
+                  onChanged: (value) =>
+                      cubit.updateRadioValue(value),
+                  child: Text('New')),
+              RadioMenuButton(
+                  value: 1,
+                  groupValue:  cubit.selectedCheckbox,
+                  onChanged: (value) => cubit.updateRadioValue(value!),
+                  child: Text('Processing')),
+              RadioMenuButton(
+                  value: 2,
+                  groupValue:  cubit.selectedCheckbox,
+                  onChanged: (value) => cubit.updateRadioValue(value!),
+                  child: Text('Completed')),
+              RadioMenuButton(
+                  value: 3,
+                  groupValue:  cubit.selectedCheckbox,
+                  onChanged: (value) => cubit.updateRadioValue(value!),
+                  child: Text('Expired')),
               SizedBox(
                 height: 20.h,
               ),
-
-              // Row(
-              //   children: [
-              //     RadioMenuButton(
-              //         value: false,
-              //         groupValue: [],
-              //         onChanged: (v) {},
-              //         child: Text('hossam')),
-              //     RadioMenuButton(
-              //         value: true,
-              //         groupValue: [],
-              //         onChanged: (v) {},
-              //         child: Text('Muath')),
-              //     RadioMenuButton(
-              //         value: true,
-              //         groupValue: [],
-              //         onChanged: (v) {},
-              //         child: Text('hamada')),
-              //   ],
-              // ),
-              // Row(
-              //   children: [
-              //     RadioMenuButton(
-              //         value: true,
-              //         groupValue: [],
-              //         onChanged: (v) {},
-              //         child: Text('hamada')),
-              //     RadioMenuButton(
-              //         value: true,
-              //         groupValue: [],
-              //         onChanged: (v) {},
-              //         child: Text('hamada')),
-              //     RadioMenuButton(
-              //         value: true,
-              //         groupValue: [],
-              //         onChanged: (v) {},
-              //         child: Text('hamada')),
-              //   ],
-              // ),
               Row(
                 children: [
                   Text(
@@ -186,5 +177,7 @@ class EditTask extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }

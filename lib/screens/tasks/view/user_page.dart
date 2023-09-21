@@ -200,7 +200,7 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
                             ],),)
                     ),
                   ),
-                  Center(child: Text('No Tasks Yet ha'))
+                  Center(child: Text('No Tasks Yet'))
                 ])
         );
       },

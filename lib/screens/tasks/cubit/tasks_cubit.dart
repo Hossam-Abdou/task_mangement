@@ -62,6 +62,11 @@ class TasksCubit extends Cubit<TasksState> {
       }      emit(GetEmployeeError());
     });
   }
+  dynamic selectedCheckbox=0;
 
+  void updateRadioValue( value) {
+    selectedCheckbox = value;
+    emit(RadioValueChanged());
+  }
 
 }

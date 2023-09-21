@@ -110,26 +110,28 @@ class UserTasks extends StatelessWidget {
                         Divider(),
                         Row(
                           children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 5),
-                              decoration: BoxDecoration(
-                                border: Border(left: BorderSide(color:CustomColors.primaryButton,width: 3, ))
-                              ),
-                              height: 53.h,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text('Create a High-Intensity Interval...',style: TextStyle(color: CustomColors.darkBlue,fontSize: 16.sp,fontWeight: FontWeight.bold,),),
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.only(left: 5),
+                                height: 53.h,
+                                decoration: BoxDecoration(
+                                  border: Border(left: BorderSide(color:CustomColors.primaryButton,width: 3, ))
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text('Create a High-Intensity Interval...',style: TextStyle(color: CustomColors.darkBlue,fontSize: 16.sp,fontWeight: FontWeight.bold,),),
 
-                                      Icon(Icons.more_vert)
-                                    ],
-                                  ),
-                                  Text('Design a 20-minute HIIT workout routine.',style: TextStyle(color:CustomColors.greyText,fontSize: 12.sp,fontWeight: FontWeight.bold),),
+                                        Icon(Icons.more_vert)
+                                      ],
+                                    ),
+                                    Text('Design a 20-minute HIIT workout routine.',style: TextStyle(color:CustomColors.greyText,fontSize: 12.sp,fontWeight: FontWeight.bold),),
 
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],

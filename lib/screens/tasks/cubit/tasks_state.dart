@@ -12,3 +12,5 @@ class AddTasksLoading extends TasksState {}
 class GetEmployeeLoading extends TasksState {}
 class GetEmployeeSucc extends TasksState {}
 class GetEmployeeError extends TasksState {}
+
+class RadioValueChanged extends TasksState {}

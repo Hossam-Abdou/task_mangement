@@ -108,8 +108,7 @@ class LoginScreen extends StatelessWidget {
                             fallback:(context) => InkWell(
                               onTap: () {
 
-                                cubit.emailController.text='hssggs@admin.com';
-                                cubit.passwordController.text='password';
+
                                 cubit.Login();
                               },
                               child:CustomButton(text:'Login') ,

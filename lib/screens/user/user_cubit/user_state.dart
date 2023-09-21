@@ -25,10 +25,7 @@ class DeleteUserLoading extends UserState {}
 class DeleteUserSucc extends UserState {}
 class DeleteUserError  extends UserState {}
 
-
-
-
-
 class mn extends UserState {}
+class RadioValueChanged extends UserState {}
 
 
