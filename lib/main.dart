@@ -19,7 +19,6 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await DioHelper.init();
   Bloc.observer = MyBlocObserver();
-  await SharedPrefrenceHelper.init();
 
   runApp(MyApp());
 }
@@ -43,7 +42,12 @@ class MyApp extends StatelessWidget {
             ],
             child: MaterialApp(
                 debugShowCheckedModeBanner: false,
-                theme: ThemeData(useMaterial3: true),
+                theme: ThemeData(
+                    useMaterial3: true,
+                  drawerTheme: DrawerThemeData(
+
+                  )
+                ),
                 home:LoginScreen()
             ),
           );

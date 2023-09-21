@@ -48,9 +48,10 @@ TextEditingController passwordController= TextEditingController();
         token:await SecureStorage().storage.read(key:SharedPreferencesKeys.token),
         data: {
     }
-    ).then((value) {
+    ).then((value) async{
       SecureStorage().deleteSecureData(SharedPreferencesKeys.token);
       print('loggg out');
+      print( ' fssfsf  ${await SecureStorage().storage.read(key:SharedPreferencesKeys.token)}' );
       emit(UserLogOutSuccessState());
     }).catchError((error) {
       print('error log out ');

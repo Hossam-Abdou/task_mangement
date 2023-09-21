@@ -29,12 +29,13 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
   }
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthenticateCubit, AuthenticateState>(
+    return BlocConsumer<DepartmentCubit, DepartmentState>(
       listener: (context, state) {},
       builder: (context, state) {
 
         var cubit=DepartmentCubit.get(context);
         return Scaffold(
+
             backgroundColor: Color(0xffF3FAF9),
             appBar: AppBar(
               bottom: TabBar(
@@ -134,7 +135,7 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
                               SizedBox(height: 10.h,),
 
                               GridView.builder(
-                                itemCount: 3,
+                                itemCount: (cubit.getDepartment?.data?[index].employees?.length??0),
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -144,10 +145,12 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
                                     crossAxisSpacing: 10
                                 ),
 
-                                itemBuilder:(context, index) =>  Container(
+
+                                itemBuilder:(context, currentIndex) =>
+                                    Container(
                                   height: 85.h,
-                                  width: 150.w,
-                                  padding: EdgeInsets.symmetric(vertical: 11.0.h,horizontal: 3),
+                                  width: 155.w,
+                                  padding: EdgeInsets.symmetric(vertical: 11.0.h,horizontal: 3.w),
                                   decoration: BoxDecoration(
                                       border: Border.all(color:  CustomColors.greyText.withOpacity(0.2)),
                                       borderRadius: BorderRadius.circular(5),
@@ -159,7 +162,9 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text('Employee Name',style: TextStyle(color: CustomColors.darkBlue,fontSize: 16.sp,fontWeight: FontWeight.bold),),
+                                          SizedBox(
+                                            width:99,
+                                              child: Text('${cubit.getDepartment?.data?[index].employees?[currentIndex].name}',style: TextStyle(color: CustomColors.darkBlue,fontSize: 16.sp,fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis,)),
                                           Container(
                                               decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(3),
@@ -173,13 +178,15 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
                                           Row(
                                             children: [
                                               Icon(Icons.email_outlined,color:CustomColors.greyText,),
-                                              Text('user email',style: TextStyle(color: CustomColors.darkBlue,fontSize: 8.sp),),
+                                              SizedBox(
+                                                  width:95.w,
+                                                  child: Text('${cubit.getDepartment?.data?[index].employees?[currentIndex].email??'empty'}',style: TextStyle(color: CustomColors.darkBlue,fontSize: 8.sp),maxLines: 1,overflow: TextOverflow.ellipsis,)),
                                             ],
                                           ),
                                           Row(
                                             children: [
                                               Icon(Icons.phone_outlined,color: CustomColors.greyText,),
-                                              Text('user email',style: TextStyle(color: CustomColors.darkBlue,fontSize: 8.sp),),
+                                              Text('${cubit.getDepartment?.data?[index].employees?[currentIndex].phone}',style: TextStyle(color: CustomColors.darkBlue,fontSize: 8.sp),),
                                             ],
                                           ),
 
@@ -187,7 +194,7 @@ class _UserPageState extends State<UserPage> with SingleTickerProviderStateMixin
                                       ),
                                     ],
                                   ),
-                                ) ,
+                                )
 
                               )
                             ],),)
