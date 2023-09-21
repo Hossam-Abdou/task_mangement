@@ -7,8 +7,13 @@ import 'package:untitled1/screens/tasks/cubit/tasks_cubit.dart';
 import 'package:untitled1/screens/tasks/cubit/tasks_state.dart';
 
 import '../../../utils/colors/custom_colors.dart';
+import '../model/get_tasks_model.dart';
 
 class EditTask extends StatelessWidget {
+  var id;
+
+  EditTask({required this.id});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TasksCubit, TasksState>(

@@ -6,7 +6,6 @@ import 'package:meta/meta.dart';
 import 'package:untitled1/utils/end_points/urls.dart';
 import '../../../service/dio_helper/dio_helper.dart';
 import '../../../service/secure_storage.dart';
-import '../../../service/sp_helper/sp_helper.dart';
 import '../../../service/sp_helper/sp_keys.dart';
 import '../models/department_model.dart';
 import '../models/get_departments_model.dart';
@@ -34,7 +33,7 @@ class DepartmentCubit extends Cubit<DepartmentState> {
     emit(NewDepLoading());
     await DioHelper.postData(
         url: EndPoints.storeDep,
-       token: "${SecureStorage().storage.read(key:SharedPreferencesKeys.token)}",
+       token: "${await SecureStorage().storage.read(key:SharedPreferencesKeys.token)}",
         data: {
           "name": nameController.text,
         }).then((value) {

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:untitled1/screens/tasks/cubit/tasks_state.dart';
+import 'package:untitled1/screens/tasks/model/get_tasks_model.dart';
+import 'package:untitled1/screens/tasks/model/update_task.dart';
 import '../../../service/dio_helper/dio_helper.dart';
 import '../../../service/secure_storage.dart';
 import '../../../service/sp_helper/sp_helper.dart';
@@ -18,7 +20,12 @@ class TasksCubit extends Cubit<TasksState> {
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   DateRangePickerController dateController = DateRangePickerController();
+
   GetEmployeeModel? getEmployeeModel;
+  GetAllTasks? getAllTasks;
+  UpdateTask?updateTask;
+
+
   addTask(id) async {
     emit(AddTasksLoading());
     await DioHelper.postData(
@@ -62,6 +69,56 @@ class TasksCubit extends Cubit<TasksState> {
       }      emit(GetEmployeeError());
     });
   }
+
+  updatAllTask(id) async {
+    emit(UpdateTasksLoading());
+    await DioHelper.postData(
+        url: '${EndPoints.updateTasks}/$id',
+        token: "${await SecureStorage().storage.read(key:SharedPreferencesKeys.token)}",
+        data: {
+          "name": nameController.text,
+          "description": descriptionController.text,
+          'start_date':'2024/01/01',
+          'end_date':'2024/01/01',
+          'status':selectedCheckbox,
+          'employee_id':5
+        }).then((value) {
+
+      if (value.data["code"] == 200 || value.data["code"] == 201) {
+        updateTask = UpdateTask.fromJson(value.data);
+        getTasks();
+        emit(UpdateTasksSucc());
+      }
+    }).catchError((error) {
+      if (error is DioError && error.response?.statusCode == 401) {
+        final data = error.response?.data;
+        final message = data['message'];
+        print(message);
+      }
+      emit(UpdateTasksError());
+    });
+  }
+
+
+  getTasks() async {
+    emit(GetTasksLoading());
+    DioHelper.getData(
+        url: EndPoints.getTasks,
+        token:await SecureStorage().storage.read(key:SharedPreferencesKeys.token)
+    ).then((value) {
+      print('1');
+      getAllTasks = GetAllTasks.fromJson(value.data);
+      emit(GetTasksSucc());
+    }).catchError((error) {
+      if (error is DioError && error.response?.statusCode == 401) {
+        final data = error.response?.data;
+        final message = data['message'];
+        print(message);
+      }      emit(GetTasksError());
+    });
+  }
+
+
   dynamic selectedCheckbox=0;
 
   void updateRadioValue( value) {

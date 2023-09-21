@@ -106,17 +106,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       ))
                 ),
                 ListTile(
-                  leading: Icon(Icons.edit_note),
-                  title: Text(
-                    'Edit Task',
-                  ),
-                  onTap: () =>Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EditTask(),
-                      ))
-                ),
-                ListTile(
                   leading: Icon(Icons.account_circle_rounded,),
                   title: Text(
                     'User Page',

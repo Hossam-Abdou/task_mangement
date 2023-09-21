@@ -17,4 +17,6 @@ class EndPoints{
 
 
   static const String storeTasks='task/store';
+  static const String getTasks='task/index';
+  static const String updateTasks='task/update';
 }

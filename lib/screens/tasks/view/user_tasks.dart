@@ -1,15 +1,25 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:untitled1/screens/tasks/cubit/tasks_cubit.dart';
+import 'package:untitled1/screens/tasks/cubit/tasks_state.dart';
 
 import '../../../utils/colors/custom_colors.dart';
+import 'edit_task.dart';
 
 class UserTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<TasksCubit, TasksState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var cubit= TasksCubit.get(context);
     return Scaffold(
       appBar: AppBar(
 
@@ -91,61 +101,68 @@ class UserTasks extends StatelessWidget {
             child: ListView.separated(
               separatorBuilder: (context, index) => SizedBox(height: 15.h,),
               shrinkWrap: true,
-              itemCount: 4,
-              itemBuilder:(context, index) =>  Container(
-                height: 163.h,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 10.0.h,horizontal: 2.w),
-                decoration: BoxDecoration(
-                    border: Border.all(color: CustomColors.greyText.withOpacity(0.2)),
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white
-                ),
-                child: Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 10.0.w),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('New',style: GoogleFonts.roboto(color:CustomColors.primaryButton,fontSize: 16.sp,fontWeight: FontWeight.bold),),
-                        Divider(),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                padding: EdgeInsets.only(left: 5),
-                                height: 53.h,
-                                decoration: BoxDecoration(
-                                  border: Border(left: BorderSide(color:CustomColors.primaryButton,width: 3, ))
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text('Create a High-Intensity Interval...',style: TextStyle(color: CustomColors.darkBlue,fontSize: 16.sp,fontWeight: FontWeight.bold,),),
+              itemCount:cubit.getAllTasks?.data?.length??0,
+              itemBuilder:(context, index) =>  InkWell(
+                onTap: ()
+                {
+                  print(cubit.getAllTasks!.data![index].id);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditTask(id:cubit.getAllTasks!.data![index].id),));
+                },
+                child: Container(
+                  height: 163.h,
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(vertical: 10.0.h,horizontal: 2.w),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: CustomColors.greyText.withOpacity(0.2)),
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white
+                  ),
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 10.0.w),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('${cubit.getAllTasks!.data![index].status}',style: GoogleFonts.roboto(color:CustomColors.primaryButton,fontSize: 16.sp,fontWeight: FontWeight.bold),),
+                          Divider(),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 5),
+                                  height: 53.h,
+                                  decoration: BoxDecoration(
+                                    border: Border(left: BorderSide(color:CustomColors.primaryButton,width: 3, ))
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text('${cubit.getAllTasks!.data![index].name}',style: TextStyle(color: CustomColors.darkBlue,fontSize: 16.sp,fontWeight: FontWeight.bold,),),
 
-                                        Icon(Icons.more_vert)
-                                      ],
-                                    ),
-                                    Text('Design a 20-minute HIIT workout routine.',style: TextStyle(color:CustomColors.greyText,fontSize: 12.sp,fontWeight: FontWeight.bold),),
+                                          Icon(Icons.more_vert)
+                                        ],
+                                      ),
+                                      Text('${cubit.getAllTasks!.data![index].description}',style: TextStyle(color:CustomColors.greyText,fontSize: 12.sp,fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis,),
 
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 24.h,),
-                        Row(
-                          children: [
-                            Icon(Icons.alarm_sharp),
-                            Text('starts 12/9/2023 - ends 15/9/2023',style: GoogleFonts.roboto(color: CustomColors.darkBlue,fontWeight: FontWeight.bold),)
-                          ],
-                        )
-                      ],
-                    ),
+                            ],
+                          ),
+                          SizedBox(height: 24.h,),
+                          Row(
+                            children: [
+                              Icon(Icons.alarm_sharp),
+                              Text('starts ${cubit.getAllTasks!.data![index].startDate} - ends ${cubit.getAllTasks!.data![index].endDate}',style: GoogleFonts.roboto(color: CustomColors.darkBlue,fontWeight: FontWeight.bold),)
+                            ],
+                          )
+                        ],
+                      ),
 
+                  ),
                 ),
               ),
             ),
@@ -153,5 +170,7 @@ class UserTasks extends StatelessWidget {
         ],),
       ),
     );
+  },
+);
   }
 }

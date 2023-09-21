@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
               BlocProvider(create:(context) => AuthenticateCubit(),),
               BlocProvider(create:(context) => DepartmentCubit()..getAllDepartments(),),
               BlocProvider(create:(context) => UserCubit()..getAllUsers()),
-              BlocProvider(create:(context) => TasksCubit()..getAllEmployee()),
+              BlocProvider(create:(context) => TasksCubit()..getAllEmployee()..getTasks()),
 
             ],
             child: MaterialApp(
