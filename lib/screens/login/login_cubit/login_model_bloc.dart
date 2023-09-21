@@ -30,6 +30,8 @@ TextEditingController passwordController= TextEditingController();
       authentication = AuthenticationModel.fromJson(value.data);
       if (authentication!.code == 200) {
         print(authentication!.data!.userType);
+        emailController.clear();
+        passwordController.clear();
         emit(UserLoginSuccessState());
       }
       await SecureStorage().storage.write(key: SharedPreferencesKeys.token, value: authentication!.data!.token);
